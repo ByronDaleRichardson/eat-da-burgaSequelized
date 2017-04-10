@@ -1,0 +1,21 @@
+* {
+	text-align: center;
+}
+body {
+	background-color: #fda43c;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 14px;
+	padding: 12px;
+}
+
+img {
+	height: 200px;
+}
+
+.jumbotron {
+	background-color: #83d255;
+}
+
+.panel {
+	border: none;
+}

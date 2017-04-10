@@ -1,0 +1,73 @@
+<div class="container">	
+	<div class="jumbotron"> 
+		<img src="/assets/images/daBurga01.png"> 
+		<h2> Eat-Da-Burga!!! </h2>
+	</div>
+
+	{{!-- list of burgers before being eaten --}}
+	<div class="row">
+		<div class="col-md-5 col-md-offset-1">
+			<h3>Order Up!</h3>
+			<div class="panel-panel default"> 
+				<ul class="list-group">
+				{{#each burgers}}
+					{{#unless this.devoured}}
+					<li class="list-group-item">
+						<div class="input-group">
+							<p class="lead"> {{this.burger_name}} </p>
+							<span class="input-group-btn">
+								<form action="burgers/update/{{this.id}}?_method=PUT" method="POST">
+									<input type="hidden" name="devoured" value="true">
+									<button class="btn btn-default btn-lg" type="submit"> Devour! </button>
+								</form>
+							</span>
+						</div>
+					</li>
+					{{/unless}}
+				{{/each}}
+			</ul>
+		</div>
+	</div>
+
+
+		{{!-- list of burgers after being eaten --}}
+	<div class="row">
+		<div class="col-md-5">
+			<h3>Devoured!</h3>
+			<div class="panel panel-default">
+				<ul class="list-group">
+				{{#each burgers}}
+					{{#if this.devoured}}
+					<li class="list-group-item">
+						<div class="input-group">
+							<span class="input-group-btn">
+								<form action="burgers/update/{{this.id}}?_method=PUT" method="POST">
+									<input type="hidden" name="devoured" value="false">
+									<button class="btn btn-default btn-lg" type="submit"> Re-Order! </button>
+								</form>
+							</span>
+							<p class="lead">{{this.burger_name}} </p>
+						</div>
+					</li>
+					{{/if}}
+				{{/each}}
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-10 col-md-offset-1">
+		<p class="lead"> Enter the name of the burger you want to eat & click the button. </p>
+
+		{{!-- section to add burgers --}}
+		<form class="create-update-form" action="burgers/create" method="POST">
+
+			<div class="form-group">
+				<textarea class="form-control input-lg" type="text" name="b_name" rows="3"> </textarea>
+			</div>
+
+			<button class="btn btn-default btn-lg" type="submit">Place Order</button>
+		</form>
+	</div>
+</div>
+
