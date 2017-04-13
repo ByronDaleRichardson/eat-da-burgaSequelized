@@ -7,24 +7,33 @@ router.get('/', function(req, res) {
 });
 
 router.get('/burgers', function(req, res) {
-	burgers.all(function(data) {
-		var hbsObject = {burgers: data};
-		console.log(hbsObject);
-		res.render('index', hbsObject);
+	db.Burger.findAll({})
+	.then(function(dbBurger) {
+		res.redirect('/burgers');
 	});
-});
+});	
+
 
 router.post('/burgers/create', function(req, res) {
-	burgers.create(['burger_name'], [req.body.b_name], function(data) {res.redirect('/burgers')
+	console.log(req.body);
+	db.Burger.create({
+		burger_name: req.body.title
+	})
+	.then(function(dbBurger) {
+		res.redirect('/burgers');
 	});
 });
 
 router.put('/burgers/update/:id', function(req, res) {
-	var condition = 'id = ' + req.params.id;
-	console.log('condition ', condition);
-	burgers.update({'devoured': req.body.devoured}, condition, function(data) {
+	db.Burger.update(req.body, 
+		{
+			where: {
+				id:req.body.id
+			}
+		})
+	.then(function(dbBurger) {
 		res.redirect('/burgers');
 	});
-});
+});	
 
 module.exports = router;
